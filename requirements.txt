@@ -1,0 +1,6 @@
+modbus_tk==1.1.2
+numpy==2.1.1
+pyserial==3.5
+PyVISA==1.13.0
+pywinauto==0.6.8
+spidev==3.6
