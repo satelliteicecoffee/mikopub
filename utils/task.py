@@ -6,10 +6,6 @@ import sys
 
 from mikopub.utils import log
 from mikopub._res._visa_instrument import _visa_instrument
-if sys.platform.startswith("win"):
-    from mikopub._res._modbus_instrument import _modbus_instrument
-if sys.platform.startswith("linux"):
-    from mikopub._res._spi_instrument import _spi_instrument
 
 
 class Task(object):
@@ -40,12 +36,7 @@ class Task(object):
         # scan all instance variables, loaded instrument to task if not loaded
         for attr_name in dir(self):
             attr_value = getattr(self, attr_name)
-            if sys.platform.startswith("win"):
-                incld_instr = (_visa_instrument, _modbus_instrument)
-            elif sys.platform.startswith("linux"):
-                incld_instr = (_visa_instrument, _spi_instrument)
-            else:
-                pass
+            incld_instr = (_visa_instrument)
             if isinstance(attr_value, incld_instr):
                 self.log.info(f"[{attr_value.instrName}]: Loaded to instr list")
                 self.instrs.append(attr_value)
