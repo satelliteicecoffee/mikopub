@@ -24,7 +24,7 @@ A test case is treated as one (or more) *Task*, and a *Task* takes over the foll
 * Log management for all instruments and the *Task* itself
 * Parameter preparations, e.g. loading data, pre-calculations, conditional operations, if any
 
-The *Task* can be used either directly or case template.
+The *Task* can be used either directly or as a test case template.
 
 **Directly:**
 
