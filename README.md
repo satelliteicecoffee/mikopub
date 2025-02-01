@@ -16,6 +16,7 @@ Public version for general purpose.
 * TCP/IP
 * UDP (*socket* backend)
 
+Based mainly on PyVISA.
 
 # Usage
 A test case is treated as one (or more) *Task*, and a *Task* takes over the followng things:
