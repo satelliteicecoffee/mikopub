@@ -13,6 +13,8 @@ import sys
 from mikopub.utils.task import Task
 from mikopub.utils.scan_device import scanDevice
 
+from mikopub.instrument.example_instrument import example_instrument
+
 if sys.platform.startswith("linux"):
     pass
 if sys.platform.startswith("win"):

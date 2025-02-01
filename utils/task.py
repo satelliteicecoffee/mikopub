@@ -94,20 +94,18 @@ class Task(object):
                 self.instrs.append(i)
         pass
 
-    def setloglogger(self, filename, path, toConsole=True):
+    def setloglogger(self, logFile, toConsole=True):
         '''
-        e.g. filename="log.log", path="task/data"
+        e.g. logFile="task/data/log.log"
         '''
-        filepath = path + "/" + filename
-        self.log = log.setLogLogger(logFile=filepath, logName="Task_Global_LOG", toConsole=toConsole)
+        self.log = log.setLogLogger(logFile=logFile, logName="Task_Global_LOG", toConsole=toConsole)
         return self.log
 
-    def setcsvlogger(self, filename, path, toConsole=False):
+    def setcsvlogger(self, logFile, toConsole=False):
         '''
-        e.g. filename="log.csv", path="task/data"
+        e.g. logFile="task/data/log.csv"
         '''
-        filepath = path + "/" + filename
-        self.csv = log.setCsvLogger(logFile=filepath, logName="Task_Global_CSV", toConsole=toConsole)
+        self.csv = log.setCsvLogger(logFile=logFile, logName="Task_Global_CSV", toConsole=toConsole)
         return self.csv
 
     def logTitle(self):
