@@ -94,13 +94,54 @@ class example_instrument(_visa_instrument):
         super(example_instrument, self).__init__()
 ```
 
-*switchRemote()* and *terminateInstr()* are necessary functions to have. *Task* context manager rely on them to start and clean the instuments.\
+*switchRemote()*, *terminateErrorInstr()* and *terminateInstr()* are necessary functions to have for any instrument.\
+*Task* context manager calls them automatically at start and cleanup or when error occurs.
+* *switchRemote(toStatus="on")* is called when the *Task* context starts
+* *terminateErrorInstr()* is called when error occurs during the *Task* context.
+* *terminateInstr()* is called whtn *Task* finishes without abnormality
+
 It's OK to leave empty if instuments are safe without on/off or remote operations.
 ```python
+# switching codes for the instruemnt
 def switchRemote(self, toStatus: Literal["on", "off"]) -> None:
-    # switching codes for the instruemnt
 ```
 ```python
+# terminating codes for the instrument when error happens
+# e.g. cut off power output or open relay
+def terminateErrorInstr(self):
+    self.switchRemote(toStatus="off")
+```
+```python
+# terminating codes for the instrument when task finish normally
 def terminateInstr(self) -> None:
-    # termination codes for the instrument
+    self.switchRemote(toStatus="off")
+```
+
+Connect to and command the instrument using APIs in *_visa_instrument* base class.\
+
+Connnection examples:
+```python
+# create instrument instance and connect to serial port 8, baudrate 38400
+e_instr = example_instrument()
+e_instr.connectSerial(comPort=8, baudrate=38400)
+```
+```python
+# serial port on linux
+e_instr.connectSerial(comPort="/dev/ttyS", baudrate=38400)
+```
+```python
+# UDP interface
+e_instr = connectUDP(udpIP="192.168.20.25", udpPort=2025)
+```
+
+IO examples:
+```python
+# Query ID of the instrument and print
+instrument_id = self.query("*IDN?")
+print(instrument_id)
+```
+```python
+# Query ID of the instrument and print
+byte_return = self.queryBytes(b"\x02\x200\x03")
+print(byte_return)
 ```

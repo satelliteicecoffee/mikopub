@@ -67,6 +67,16 @@ class example_instrument(_visa_instrument):
         self.loglogger.info(f"[{self.instrName}]: example function 2 executed")
         pass
 
+    def terminateErrorInstr(self):
+        '''
+        **Terminate device on error, turn off output and handle error situation
+        **None
+        **None
+        '''
+        self.switchRemote(toStatus="off")
+        self._termInfo()
+        pass
+
     def terminateInstr(self) -> None:
         '''
         **Terminate device, turn off output

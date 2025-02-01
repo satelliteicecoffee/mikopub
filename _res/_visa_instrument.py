@@ -204,6 +204,21 @@ class _visa_instrument(calc._Calc, object):
         self.loglogger.info(f"[{self.instrName}]: Read {bytenum} bytes:".ljust(48)+f"{resp}")
         return resp
 
+    def _termError(self) -> None:
+        self.instr.close()
+        self.loglogger.error(f"[{self.instrName}]: Terminated on error")
+        pass
+
+    def terminateErrorInstr(self) -> None:
+        '''
+        **Terminate device on error for visa instrument placeholder
+        **None
+        **None
+        '''
+        # function to terminate device on error
+        self._termError()
+        pass
+
     def _termInfo(self) -> None:  # log device termination info
         self.instr.close()
         self.loglogger.info(f"[{self.instrName}]: Terminated")
@@ -215,6 +230,8 @@ class _visa_instrument(calc._Calc, object):
         **None
         **None
         '''
+        # function to terminate device normally
+        self._termInfo()
         pass
 
     pass
